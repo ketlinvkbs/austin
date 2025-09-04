@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Cliente, Endereco, Telefone, ClienteTelefone
 from .serializers import ClienteSerializer, UserSerializer, EnderecoSerializer, ClienteTelefoneSerializer, ClienteTelefoneCreateSerializer
+from django.shortcuts import render
 
 # Create your views here.
+
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     #Define as classes de backend para processar filtros
@@ -55,3 +57,9 @@ class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+def index(request):
+    return render(request, 'index.html')
+
+def app(request):
+    return render(request, 'app.html')
