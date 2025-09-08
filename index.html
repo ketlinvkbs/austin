@@ -7,56 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Austin - Gestão de Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            color: #fff;
-            text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        .cover-container {
-            max-width: 42em;
-        }
-        
-        .nav-masthead .nav-link {
-            font-weight: 700;
-            color: rgba(255, 255, 255, .5);
-            background-color: transparent;
-            border-bottom: .25rem solid transparent;
-        }
-        
-        .nav-masthead .nav-link:hover,
-        .nav-masthead .nav-link:focus {
-            border-bottom-color: rgba(255, 255, 255, .25);
-        }
-        
-        .nav-masthead .active {
-            color: #fff;
-            border-bottom-color: #fff;
-        }
-        
-        main {
-            backdrop-filter: blur(2px);
-            padding: 2rem;
-            border-radius: 1rem;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-        
-        .display-4 {
-            font-size: 2.5rem;
-            font-weight: 300;
-        }
-        
-        .btn-light {
-            color: #333;
-            text-shadow: none;
-        }
-    </style>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 
-<body class="d-flex h-100 text-center" style="background-image: linear-gradient(rgba(26, 35, 47, 0.8), rgba(26, 35, 47, 0.95)), url('{% static " logo_austin.jpg " %}');">
+<body class="d-flex h-100 text-center">
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
@@ -71,7 +25,7 @@
         <main class="px-3">
             <h1 class="display-4">Gestão de Clientes Simplificada</h1>
             <p class="lead mt-4">
-                Uma solução elegante e poderosa para organizar contactos, moradas e notas importantes com uma interface intuitiva e segura.
+                Uma solução elegante e poderosa para organizar contatos, endereços e notas importantes com uma interface intuitiva e segura.
             </p>
             <p class="lead">
                 <a href="/app/" class="btn btn-lg btn-light fw-bold border-white bg-white">Aceder à Aplicação</a>
