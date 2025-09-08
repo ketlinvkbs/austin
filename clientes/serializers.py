@@ -136,7 +136,7 @@ class ClienteSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['password', 'email', 'username']
+        fields = ['password', 'email', 'username', 'first_name', 'last_name']
         extra_kwargs = {'password': {'write_only': True}}
         
     def create(self, validated_data):

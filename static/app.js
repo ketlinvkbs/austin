@@ -59,6 +59,9 @@ function handleLogout() {
 // Função que lida com o envio do formulario de resgistro 
 async function handleRegisterSubmit(event) {
     event.preventDefault();
+
+    const firstName = document.getElementById('registerFirstName').value;
+    const lastName = document.getElementById('registerLastName').value;
     const username = document.getElementById('registerUsername').value;
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
@@ -74,7 +77,9 @@ async function handleRegisterSubmit(event) {
     const userData = {
         username,
         email,
-        password
+        password,
+        first_name: firstName,
+        last_name: lastName,
     };
 
     try {
@@ -226,6 +231,7 @@ async function handleChangeStatus(clientId) {
     }
 }
 
+// Salva um endereço (novo ou editado).
 async function handleAddressSubmit(event) {
     event.preventDefault();
 
@@ -290,6 +296,7 @@ async function handleEditAddress(addressId) {
     }
 }
 
+// Salva um telefone (novo ou editado).
 async function handlePhoneSubmit(event) {
     event.preventDefault();
 
