@@ -1,11 +1,11 @@
-from rest_framework import viewsets, filters, generics
+from rest_framework import viewsets, filters, generics, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Cliente, Endereco, Telefone, ClienteTelefone
-from .serializers import ClienteSerializer, UserSerializer, EnderecoSerializer, ClienteTelefoneSerializer, ClienteTelefoneCreateSerializer
+from .serializers import UserDetailSerializer, ClienteSerializer, UserSerializer, EnderecoSerializer, ClienteTelefoneSerializer, ClienteTelefoneCreateSerializer
 from django.shortcuts import render
 
 # Create your views here.
@@ -58,8 +58,16 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+class UserDetailView(generics.RetrieveAPIView):
+    serializer_class = UserDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_object(self):
+        return self.request.user
+
 def index(request):
     return render(request, 'index.html')
 
 def app(request):
     return render(request, 'app.html')
+

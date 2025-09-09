@@ -456,6 +456,21 @@ async function handleManage(clientId) {
     }
 }
 
+// Carrega os dados do perfil do usuário logado.
+async function loadProfileData() {
+    try {
+        const userData = await apiRequest('/user/', 'GET');
+        const fullName = `${userData.firstName} ${userData.lastName}`;
+        document.getElementById('profileUsername').textContent = userData.username;
+        document.getElementById('profileFullName').textContent = fullName;
+        document.getElementById('profileEmail').textContent = userData.email;
+    } catch (error) {
+        console.error('Erro ao carregar dados do perfil:', error);
+        alert('Não foi possível carregar os dados do perfil.');
+    }
+
+}
+
 // --- OUVINTES DE EVENTOS ---
 // Liga as funções às ações do utilizador na página.
 
@@ -482,6 +497,9 @@ clientForm.addEventListener('submit', handleFormSubmit);
 
 // Quando o formulário de telefone é enviado, chama a função para salvar.
 phoneForm.addEventListener('submit', handlePhoneSubmit);
+
+// Abre a aba de visualizar o perfil do usuario
+document.getElementById('offcanvasPerfil').addEventListener('shown.bs.offcanvas', loadProfileData);
 
 // Limpa o formulário quando o popup de cliente é aberto para um novo registo.
 clientModal._element.addEventListener('show.bs.modal', (event) => {
