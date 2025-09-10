@@ -460,7 +460,7 @@ async function handleManage(clientId) {
 async function loadProfileData() {
     try {
         const userData = await apiRequest('/user/', 'GET');
-        const fullName = `${userData.firstName} ${userData.lastName}`;
+        const fullName = `${userData.first_name} ${userData.last_name}`;
         document.getElementById('profileUsername').textContent = userData.username;
         document.getElementById('profileFullName').textContent = fullName;
         document.getElementById('profileEmail').textContent = userData.email;
