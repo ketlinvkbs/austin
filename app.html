@@ -341,19 +341,28 @@
             <h5 class="offcanvas-title" id="offcanvasPerfilLabel">Meu Perfil</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <p>Meus Dados</p>
-            <h6>Nome de usuario</h6>
-            <p id="profileUsername">Carregando...</p>
+        <form id="perfilForm">
+            <div class="mb-3">
+                <p>Meus Dados</p>
+                <label for="profileUsername" class="form-label">Nome de Usuário</label>
+                <input type="text" class="form-control" id="profileUsername" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="profileFirstName" class="form-label">Primeiro Nome</label>
+                <input type="text" class="form-control" id="profileFirstName" required>
+            </div>
+            <div class="mb-3">
+                <label for="profileLastName" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="profileLastName" required>
+            </div>
+            <div class="mb-3">
+                <label for="profileEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="profileEmail" required>
+            </div>
             <hr>
-            <h6>Nome Completo</h6>
-            <p id="profileFullName">Carregando...</p>
-            <hr>
-            <h6>Email</h6>
-            <p id="profileEmail">Carregando...</p>
-            <hr>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             <button class="btn btn-secondary mt-3" data-bs-dismiss="offcanvas">Fechar</button>
-        </div>
+        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'app.js' %}"></script>

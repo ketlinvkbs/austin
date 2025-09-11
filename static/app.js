@@ -460,15 +460,38 @@ async function handleManage(clientId) {
 async function loadProfileData() {
     try {
         const userData = await apiRequest('/user/', 'GET');
-        const fullName = `${userData.first_name} ${userData.last_name}`;
-        document.getElementById('profileUsername').textContent = userData.username;
-        document.getElementById('profileFullName').textContent = fullName;
-        document.getElementById('profileEmail').textContent = userData.email;
+
+        document.getElementById('profileUsername').value = userData.username;
+        document.getElementById('profileFirstName').value = userData.first_name;
+        document.getElementById('profileLastName').value = userData.last_name
+        document.getElementById('profileEmail').value = userData.email;
     } catch (error) {
         console.error('Erro ao carregar dados do perfil:', error);
         alert('Não foi possível carregar os dados do perfil.');
     }
 
+}
+
+// Atualiza os dados do perfil do usuário.
+async function handleProfileUpdate(event) {
+    event.preventDefault();
+
+    const updatedData = {
+        first_name: document.getElementById('profileFirstName').value,
+        last_name: document.getElementById('profileLastName').value,
+        email: document.getElementById('profileEmail').value,
+    };
+    try {
+        await apiRequest('/user/', 'PATCH', updatedData);
+        alert('Perfil atualizado com sucesso!');
+
+        const offcanvasElement = document.getElementById('offcanvasPerfil');
+        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+        offcanvas.hide();
+    } catch (error) {
+        console.error('Erro ao atualizar perfil:', error);
+        alert('Não foi possível atualizar o perfil.');
+    }
 }
 
 // --- OUVINTES DE EVENTOS ---
@@ -499,7 +522,11 @@ clientForm.addEventListener('submit', handleFormSubmit);
 phoneForm.addEventListener('submit', handlePhoneSubmit);
 
 // Abre a aba de visualizar o perfil do usuario
-document.getElementById('offcanvasPerfil').addEventListener('shown.bs.offcanvas', loadProfileData);
+document.getElementById('offcanvasPerfil').addEventListener('show.bs.offcanvas', loadProfileData);
+
+// Atualiza os dados do perfil quando o formulário é enviado.
+const profileForm = document.getElementById('perfilForm');
+profileForm.addEventListener('submit', handleProfileUpdate);
 
 // Limpa o formulário quando o popup de cliente é aberto para um novo registo.
 clientModal._element.addEventListener('show.bs.modal', (event) => {
