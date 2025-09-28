@@ -10,16 +10,10 @@ const addressForm = document.getElementById('addressForm');
 const phoneForm = document.getElementById('phoneForm');
 const searchInput = document.getElementById('searchInput');
 const filterSelect = document.getElementById('filterSelect');
-const loadingIndicator = document.getElementById('loadingIndicator');
-const loginError = document.getElementById('loginError');
-const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-const logoutBtn = document.getElementById('logoutBtn');
 const clientModal = new bootstrap.Modal(document.getElementById('clienteModal'));
 const manageModal = new bootstrap.Modal(document.getElementById('manageModal'));
 const addressModal = new bootstrap.Modal(document.getElementById('addressModal'));
 const phoneModal = new bootstrap.Modal(document.getElementById('phoneModal'));
-const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
-const registerForm = document.getElementById('registerForm');
 
 // --- FUNÇÕES ---
 // Função para fazer logout, limpando o token e recarregando a página.
@@ -423,23 +417,8 @@ async function handleProfileUpdate(event) {
 // --- OUVINTES DE EVENTOS ---
 // Liga as funções às ações do utilizador na página.
 
-// Quando o formulário de login é enviado, chama a função de login.
-loginForm.addEventListener('submit', async(event) => {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const success = await login(username, password);
-    if (success) {
-        loginModal.hide();
-        fetchAndRenderClients();
-    }
-});
-
 // Quando o botão de logout é clicado, chama a função de logout.
 logoutBtn.addEventListener('click', handleLogout);
-
-// Quando o formulário de registro é enviado, chama a função para registrar.
-registerForm.addEventListener('submit', handleRegisterSubmit);
 
 // Quando o formulário de cliente é enviado, chama a função para salvar.
 clientForm.addEventListener('submit', handleFormSubmit);
