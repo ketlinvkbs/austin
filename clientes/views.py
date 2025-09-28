@@ -20,12 +20,13 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
     # Define os campos permitidos para o searchfilter
     search_fields = ['nome', 'email', 'observacoes']
-    @action(detail=True, methods=['post'])
+    
     
     def get_queryset(self):
         user = self.request.user
         return Cliente.objects.filter(proprietario=user).order_by('nome')
 
+    @action(detail=True, methods=['post'])
     def change_status(self, request, pk=None):
         cliente =self.get_object()
         status_order = ['ATIVO', 'INATIVO', 'ARQUIVADO']
@@ -71,3 +72,5 @@ def index(request):
 def app(request):
     return render(request, 'app.html')
 
+def login(request):
+    return render(request, 'login.html')

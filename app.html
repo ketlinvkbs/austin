@@ -142,35 +142,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Autenticação Necessaria</h5>
-
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Usuário</label>
-                            <input type="text" class="form-control" id="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="password" required>
-                        </div>
-                        <div id="loginError" class="text-danger mb-3 d-none">Usuário ou senha invalidos.</div>
-                    </form>
-                    <div class="text-center mt-3">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Não tem uma conta? Crie uma aqui.</a>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" form="loginForm" class="btn btn-primary">Entrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="manageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -289,53 +260,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Criar Nova conta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="registerForm">
-                        <div id="registerError" class="text-danger mb-3 d-none"></div>
-                        <div class="modal-body">
-                            <form id="registerForm">
-                                <div id="registerError" class="text-danger mb-3 d-none"></div>
-                                <div class="mb-3">
-                                    <label for="registerUsername" class="form-label">Nome de Usuário</label>
-                                    <input type="text" class="form-control" id="registerUsername" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerFirstName" class="form-label">Primeiro Nome</label>
-                                    <input type="text" class="form-control" id="registerFirstName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerLastName" class="form-label">Sobrenome</label>
-                                    <input type="text" class="form-control" id="registerLastName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="registerEmail" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerPassword" class="form-label">Senha</label>
-                                    <input type="password" class="form-control" id="registerPassword" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="registerPasswordConfirm" class="form-label">Confirmar Senha</label>
-                                    <input type="password" class="form-control" id="registerPasswordConfirm" required>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" form="registerForm" class="btn btn-primary">Criar Conta</button>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasPerfil" aria-label="offcanvasPerfilLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasPerfilLabel">Meu Perfil</h5>
@@ -362,6 +286,9 @@
             <hr>
             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
         </form>
+        <button id="logoutBtn" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>Sair da conta
+        </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'app.js' %}"></script>

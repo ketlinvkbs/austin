@@ -22,86 +22,12 @@ const registerModal = new bootstrap.Modal(document.getElementById('registerModal
 const registerForm = document.getElementById('registerForm');
 
 // --- FUNÇÕES ---
-
-// Envia o utilizador/senha para a API e guarda o token de acesso.
-async function login(username, password) {
-    try {
-        const response = await fetch(`${API_URL}/token/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
-        if (!response.ok) {
-            loginError.classList.remove('d-none');
-            return false;
-        } else {
-            const data = await response.json();
-            accessToken = data.access;
-            localStorage.setItem('accessToken', accessToken);
-            loginError.classList.add('d-none');
-            return true;
-        }
-    } catch (error) {
-        console.error('Erro de rede no login', error);
-        loginError.classList.remove('d-none');
-        return false;
-    }
-}
-
 // Função para fazer logout, limpando o token e recarregando a página.
 function handleLogout() {
     localStorage.removeItem('accessToken');
     accessToken = null;
     location.reload();
 
-}
-
-// Função que lida com o envio do formulario de resgistro 
-async function handleRegisterSubmit(event) {
-    event.preventDefault();
-
-    const firstName = document.getElementById('registerFirstName').value;
-    const lastName = document.getElementById('registerLastName').value;
-    const username = document.getElementById('registerUsername').value;
-    const email = document.getElementById('registerEmail').value;
-    const password = document.getElementById('registerPassword').value;
-    const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
-    const errorDiv = document.getElementById('registerError');
-
-    if (password !== passwordConfirm) {
-        errorDiv.textContent = 'As senhas não coincidem.';
-        errorDiv.classList.remove('d-none');
-        return;
-    }
-
-    const userData = {
-        username,
-        email,
-        password,
-        first_name: firstName,
-        last_name: lastName,
-    };
-
-    try {
-        const response = await fetch(`${API_URL}/register/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData),
-        });
-        if (!response.ok) {
-            const errorData = await response.json();
-            errorDiv.textContent = Object.values(errorData).flat().join(' ');
-            errorDiv.classList.remove('d-none');
-        } else {
-            registerModal.hide();
-            loginModal.show();
-            alert('Conta criada com sucesso! Por favor, faça login.');
-        }
-    } catch (error) {
-        errorDiv.textContent = 'Ocorreu um erro de rede. Tente novamente.';
-        errorDiv.classList.remove('d-none');
-        console.error('Erro no registro', error);
-    }
 }
 
 // Função central para fazer todos os pedidos à API (já com o token).
@@ -604,5 +530,5 @@ filterSelect.addEventListener('change', fetchAndRenderClients);
 if (accessToken) {
     fetchAndRenderClients();
 } else {
-    loginModal.show();
+    window.location.href = '/login/';
 }
