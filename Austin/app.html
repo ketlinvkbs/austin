@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austin - Seu Sistema Pessoal de Gerenciamento de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="#">Austin</a>
+            <div class="ms-auto">
+                <button class="btn btn-outline-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPerfil" aria-controls="offcanvasPerfil">
+                    <i class="bi bi-person-circle"></i> Meu Perfil
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Austin</h1>
+        <p class="text-center mb-4">Seu Sistema Pessoal de Gerenciamento de Clientes</p>
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-5">
+                <input type="text" id="searchInput" class="form-control" placeholder="Persquisar por nome, email...">
+            </div>
+            <div class="col-md-4">
+                <select id="filterSelect" class="form-select">
+                    <option value="">Todos os clientes</option>
+                    <option value="ATIVO">Ativos</option>
+                    <option value="INATIVO">Inativos</option>
+                    <option value="ARQUIVADO">Arquivados</option>
+                </select>
+            </div>
+            <div class="col-md-3 text-end">
+                <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#clienteModal">
+                    <i class="bi bi-plus-circle"></i> Adicionar Cliente
+                </button>
+                <button id="logoutBtn" class="btn btn-outline-danger">
+                    <i class="bi bi-box-arrow-right"></i> Sair
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="clientTableBody">
+                </tbody>
+            </table>
+            <p id="loadingIndicator" class="text-center">Carregando...
+            </p>
+        </div>
+    </div>
+    <div class="modal fade" id="clienteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientModalLabel">Adicionar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="clientForm">
+                        <input type="hidden" id="clientId">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observações" class="form-label">Observações</label>
+                            <textarea class="form-control" id="observacoes" rows="3"></textarea>
+                        </div>
+                        <hr>
+                        <h6 class="mt-4">Endereço Principal</h6>
+                        <input type="hidden" id="addressId">
+                        <div class="row">
+                            <div class="col-md-9 mb-3">
+                                <label for="logadouro" class="form-label">Logadouro</label>
+                                <input type="text" class="form-control" id="logadouro">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <input type="text" class="form-control" id="numero">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="complemento" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complemento">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairro">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="cidade">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="estado" class="form-label">Estado (UF)</label>
+                                <input type="text" class="form-control" id="estado" maxlength="2">
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mt-4">Telefone Principal</h6>
+                        <input type="hidden" id="phoneId">
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="telefone_numero" class="form-label">Número do Telefone</label>
+                                <input type="text" class="form-control" id="telefone_numero" placeholder="(XX) XXXXX-XXXX">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="telefone_tipo" class="form-label">Tipo</label>
+                                <select id="telefone_tipo" class="form-select">
+                                    <option value="RESIDENCIAL">Residencial</option>
+                                    <option value="COMERCIAL">Comercial</option>
+                                    <option value="CELULAR">Celular</option>
+                                    <option value="OUTRO">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="clientForm" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="manageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gerir Cliente: <span id="manageModalClientName" class="text-info"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="mb-4 p-3 border rounded">
+                    <h6>Dados principais</h6>
+                    <p class="mb-1"><strong>Email:</strong> <span id="manageEmail"></span></p>
+                    <p class="mb-1"><strong>Status:</strong> <span id="manageStatus"></span></p>
+                    <p class="mb-0"><strong>Observações:</strong> <span id="manageObservacoes"></span></p>
+                </div>
+                <hr>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Endereços</h6>
+                            <ul class="list-group" id="addressList">
+                            </ul>
+                            <button id="addAddressBtn" class="btn btn-outline-primary btn-sm mt-2">+Adicionar Endereço</button>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Telefones</h6>
+                            <ul class="list-group" id="phoneList">
+                            </ul>
+                            <button id="addPhoneBtn" class="btn btn-outline-primary btn-sm mt-2">+Adicionar Telefone</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Novo Endereço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addressForm">
+                        <input type="hidden" id="addressClienteId">
+                        <input type="hidden" id="addressIdToEdit">
+                        <div class="mb-3">
+                            <label for="formLogadouro" class="form-label">Logadouro</label>
+                            <input type="text" class="form-control" id="formLogadouro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formNumero" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="formNumero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formBairro" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="formBairro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formCidade" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="formCidade" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formEstado" class="form-label">Estado (UF)</label>
+                            <input type="text" class="form-control" id="formEstado" maxlength="2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formComplemento" class="form-label">Complemento</label>
+                            <input type="text" class="form-control" id="formComplemento">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formCep" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="formCep">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="addressForm" class="btn btn-primary">Salvar Endereço</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="phoneModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Novo Telefone</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="phoneForm">
+                        <input type="hidden" id="phoneClienteId">
+                        <input type="hidden" id="phoneRelationIdToEdit">
+
+                        <div class="mb-3">
+                            <label for="formTelefoneNumero" class="form-label">Número do telefone</label>
+                            <input type="text" class="form-control" id="formTelefoneNumero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formTelefoneTipo" class="form-label">Tipo</label>
+                            <select id="formTelefoneTipo" class="form-select">
+                                <option value="RESIDENCIAL">Residencial</option>
+                                <option value="COMERCIAL">Comercial</option>
+                                <option value="CELULAR">Celular</option>
+                                <option value="OUTRO">Outro</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="phoneForm" class="btn btn-primary">Salvar Telefone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasPerfil" aria-label="offcanvasPerfilLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasPerfilLabel">Meu Perfil</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <form id="perfilForm">
+            <div class="mb-3">
+                <p>Meus Dados</p>
+                <label for="profileUsername" class="form-label">Nome de Usuário</label>
+                <input type="text" class="form-control" id="profileUsername" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="profileFirstName" class="form-label">Primeiro Nome</label>
+                <input type="text" class="form-control" id="profileFirstName" required>
+            </div>
+            <div class="mb-3">
+                <label for="profileLastName" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="profileLastName" required>
+            </div>
+            <div class="mb-3">
+                <label for="profileEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="profileEmail" required>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </form>
+        <button id="logoutBtn" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>Sair da conta
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'app.js' %}"></script>
+</body>
