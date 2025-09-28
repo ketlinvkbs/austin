@@ -5,7 +5,6 @@ let accessToken = localStorage.getItem('accessToken');
 let currentManagingClientId = null;
 const clientTableBody = document.getElementById('clientTableBody');
 const clientForm = document.getElementById('clientForm');
-const loginForm = document.getElementById('loginForm');
 const addressForm = document.getElementById('addressForm');
 const phoneForm = document.getElementById('phoneForm');
 const searchInput = document.getElementById('searchInput');
@@ -14,6 +13,7 @@ const clientModal = new bootstrap.Modal(document.getElementById('clienteModal'))
 const manageModal = new bootstrap.Modal(document.getElementById('manageModal'));
 const addressModal = new bootstrap.Modal(document.getElementById('addressModal'));
 const phoneModal = new bootstrap.Modal(document.getElementById('phoneModal'));
+const logoutBtn = document.getElementById('logoutBtn');
 
 // --- FUNÇÕES ---
 // Função para fazer logout, limpando o token e recarregando a página.
@@ -37,7 +37,7 @@ async function apiRequest(endpoint, method = 'GET', data = null) {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, config);
         if (response.status === 401) {
-            loginModal.show();
+            window.location.href = '/login/';
             throw new Error('Não autorizado. Faça login novamente.');
         }
         if (!response.ok) {
