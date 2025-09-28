@@ -1,4 +1,7 @@
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-image: linear-gradient(rgba(26, 35, 47, 0.8), rgba(26, 35, 47, 0.95)), url("../logo_austin.jpg");
     background-size: cover;
     background-position: center;
