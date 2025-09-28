@@ -1,0 +1,46 @@
+body {
+    color: #fff;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(26, 35, 47, 0.8), rgba(26, 35, 47, 0.95)), url('../logo_austin.jpg');
+}
+
+.cover-container {
+    max-width: 42em;
+}
+
+.nav-masthead .nav-link {
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+main {
+    backdrop-filter: blur(2px);
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.display-4 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.btn-light {
+    color: #333;
+    text-shadow: none;
+}
