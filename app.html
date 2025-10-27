@@ -51,10 +51,18 @@
             <div class="table-responsive">
                 <table class="table table-dark table-hover align-middle">
                     <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
                     </thead>
+                    <tbody id="clientTableBody">
+                    </tbody>
                 </table>
-                <p id="loadingIndicator" class="text-center">Carregando...
-                </p>
+                <p id="loadingIndicator" class="text-center">Carregando...</p>
+                <p id="noResultsIndicator" class="text-center">Nenhum cliente encontrado.</p>
             </div>
         </div>
     </div>

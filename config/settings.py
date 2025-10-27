@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET-KEY', 'django-insecure-zyx(=txo1_53ap9#w4w=@i9@+=^z0z0$6eq*3d_@o6_$kf(#!5')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-development-key-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
@@ -65,10 +65,11 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR],
+        'DIRS': [BASE_DIR / 'templates'],  # Move templates to a dedicated directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -113,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -149,4 +150,21 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Import os module if not already imported (it should be at the top of the file)
+import os
+
+# CORS settings - restrict allowed origins for security
+if os.environ.get('DEBUG', 'True').lower() == 'true':
+    # In development, we can be more permissive
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",  # React dev server
+        "http://127.0.0.1:3000",  # Alternative React dev server
+        "http://localhost:8000",  # Django dev server
+        "http://127.0.0.1:8000",  # Alternative Django dev server
+    ]
+else:
+    # In production, only allow specific origins
+    CORS_ALLOWED_ORIGINS = [
+        "https://yourdomain.com",  # Replace with your actual domain
+        "https://www.yourdomain.com",  # Replace with your actual domain
+    ]
