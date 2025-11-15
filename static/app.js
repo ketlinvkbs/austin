@@ -4,6 +4,7 @@ const API_URL = '/api';
 let accessToken = localStorage.getItem('accessToken');
 let currentManagingClientId = null;
 const clientTableBody = document.getElementById('clientTableBody');
+const loadingIndicator = document.getElementById('loadingIndicator');
 const clientForm = document.getElementById('clientForm');
 const addressForm = document.getElementById('addressForm');
 const phoneForm = document.getElementById('phoneForm');
