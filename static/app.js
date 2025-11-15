@@ -101,6 +101,9 @@ async function handleFormSubmit(event) {
     const clientData = {
         nome: document.getElementById('nome').value,
         email: document.getElementById('email').value,
+        nome_empresa: document.getElementById('nome_empresa').value,
+        cnpj: document.getElementById('cnpj').value,
+        tipo_empresa: document.getElementById('tipo_empresa').value,
         observacoes: document.getElementById('observacoes').value,
         enderecos: [],
         telefones: [],
@@ -286,6 +289,9 @@ async function handleEdit(clientId) {
         document.getElementById('clientId').value = client.id;
         document.getElementById('nome').value = client.nome;
         document.getElementById('email').value = client.email;
+        document.getElementById('nome_empresa').value = client.nome_empresa || '';
+        document.getElementById('cnpj').value = client.cnpj || '';
+        document.getElementById('tipo_empresa').value = client.tipo_empresa || '';
         document.getElementById('observacoes').value = client.observacoes;
         clientForm.querySelector('#logadouro').value = '';
         clientForm.querySelector('#numero').value = '';

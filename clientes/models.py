@@ -26,6 +26,9 @@ class Cliente(models.Model):
     # dados clientes
     nome = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
+    nome_empresa = models.CharField(max_length=255, blank=True, null=True)
+    cnpj = models.CharField(max_length=18, blank=True, null=True)
+    tipo_empresa = models.CharField(max_length=100, blank=True, null=True)
     observacoes = models.TextField(blank=True, null=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)

@@ -85,6 +85,9 @@ class ClienteSerializer(serializers.ModelSerializer):
             'id',
             'nome',
             'email',
+            'nome_empresa',
+            'cnpj',
+            'tipo_empresa',
             'observacoes',
             'data_criacao',
             'data_atualizacao',
@@ -111,6 +114,9 @@ class ClienteSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.nome = validated_data.get('nome', instance.nome)
         instance.email = validated_data.get('email', instance.email)
+        instance.nome_empresa = validated_data.get('nome_empresa', instance.nome_empresa)
+        instance.cnpj = validated_data.get('cnpj', instance.cnpj)
+        instance.tipo_empresa = validated_data.get('tipo_empresa', instance.tipo_empresa)
         instance.observacoes = validated_data.get('observacoes', instance.observacoes)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
