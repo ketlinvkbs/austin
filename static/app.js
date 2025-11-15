@@ -506,8 +506,10 @@ filterSelect.addEventListener('change', fetchAndRenderClients);
 // Código que é executado quando a página carrega.
 
 // Se já existir um token, busca os clientes. Senão, mostra a janela de login.
-if (accessToken) {
-    fetchAndRenderClients();
-} else {
-    window.location.href = '/login/';
-}
+document.addEventListener('DOMContentLoaded', () => {
+    if (accessToken) {
+        fetchAndRenderClients();
+    } else {
+        window.location.href = '/login/';
+    }
+});
