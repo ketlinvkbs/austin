@@ -390,7 +390,7 @@ async function loadProfileData() {
 
         document.getElementById('profileUsername').value = userData.username;
         document.getElementById('profileFirstName').value = userData.first_name;
-        document.getElementById('profileLastName').value = userData.last_name
+        document.getElementById('profileLastName').value = userData.last_name;
         document.getElementById('profileEmail').value = userData.email;
     } catch (error) {
         console.error('Erro ao carregar dados do perfil:', error);
