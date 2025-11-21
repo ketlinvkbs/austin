@@ -80,9 +80,9 @@ async function fetchAndRenderClients() {
                     </button>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-outline-light me-2" onclick="handleEdit(${client.id})"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-sm btn-outline-info me-2" onclick="handleManage(${client.id})"><i class="bi bi-gear"></i></button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="handleDelete(${client.id})"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-sm btn-outline-light me-2" data-action="edit" data-client-id="${client.id}"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-outline-info me-2" data-action="manage" data-client-id="${client.id}"><i class="bi bi-gear"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" data-action="delete" data-client-id="${client.id}"><i class="bi bi-trash"></i></button>
                 </td>
                 `;
                 clientTableBody.appendChild(tr);
@@ -508,6 +508,23 @@ addressForm.addEventListener('submit', handleAddressSubmit);
 
 // Atualiza a lista quando o filtro é alterado.
 filterSelect.addEventListener('change', fetchAndRenderClients);
+
+// Event delegation for client table actions
+clientTableBody.addEventListener('click', (event) => {
+    const target = event.target.closest('button');
+    if (!target) return;
+    
+    const action = target.dataset.action;
+    const clientId = target.dataset.clientId;
+    
+    if (action === 'edit') {
+        handleEdit(clientId);
+    } else if (action === 'manage') {
+        handleManage(clientId);
+    } else if (action === 'delete') {
+        handleDelete(clientId);
+    }
+});
 
 // --- INICIALIZAÇÃO ---
 // Código que é executado quando a página carrega.
